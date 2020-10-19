@@ -86,13 +86,16 @@ class folder_Service {
 
   inserir(nome) {
     // Cria um folder (pasta) com o nome definido
-    return fetch(this.urlCreate, {
+    console.log(nome)
+    let request = {
       method: "POST",
-      body: JSON.stringify(nome),
+      body: {"nome": nome},
       headers: {
         'Content-Type': 'application/json'
       }
-    }).then(
+    }
+    console.log(request)
+    return fetch(this.urlCreate, request).then(
       resposta => resposta.json()
     );
   }
@@ -142,7 +145,7 @@ document.getElementById("criar_folder").onclick = function () {
         if (nome_folder == "") {
             swal('Digite o nome da sua pasta!', '- tente novamente -', 'error')
         } else {
-            folder_Service.inserir(nome).then(resposta => {
+          pasta_Service.inserir(nome_folder).then(resposta => {
                 $("#nome_folder").val(' ');
                 $("#area_criar_folder").hide("fast");
                 $("#menu_opcao").show("fast");
@@ -193,7 +196,7 @@ document.getElementById("historico").onclick = function () {
 
     const ul_folder = document.getElementById("historico_folder");
     // **
-    folder_Service.listar(id).then(resposta => {
+    pasta_Service.listar(id).then(resposta => {
         for (let i = 0; i <= resposta.length-1; i++) {
             const li = document.createElement("li");
             const button_folder = document.createElement("button");

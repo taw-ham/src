@@ -9,6 +9,7 @@ const Create_txt = async (req,res) => {
 }
 const Create_folder = async (req,res) => {
   const folder_data = req.body;
+  console.log(req)
   const folder = await funcoes.create_folders(folder_data);
   res.json(folder);
 

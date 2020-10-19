@@ -1,16 +1,16 @@
 const conn = require('../db');
 async function create_folders(data){
-  const sql = `INSERT INTO folders (name) VALUES (?)`;
-  const {name} = data;
+  const sql = `INSERT INTO folders (nome) VALUES (?)`;
+  const {nome} = data;
   const db = await conn();
-  const {lastID} = await db.run(sql, [name]) /*db.all*/
+  const {lastID} = await db.run(sql, [nome]) /*db.all*/
   return lastID;
 }
 async function create_txt(data){
-  const sql = `INSERT INTO folders (name,content,id_estrangeiro) VALUES (?,?,?)`;
-  const {name,content,id_estrangeiro} = data;
+  const sql = `INSERT INTO folders (nome,content,id_estrangeiro) VALUES (?,?,?)`;
+  const {nome,content,id_estrangeiro} = data;
   const db = await conn();
-  const {lastID} = await db.run(sql, [name,content,id_estrangeiro])
+  const {lastID} = await db.run(sql, [nome,content,id_estrangeiro])
   return lastID;
 }
 async function filters_txt(data){
@@ -41,8 +41,8 @@ async function update_txt(id,content){
   const {results} = await db.run(sql,[content,id]);
   return results; 
 }
-async function update_folder(id,name){
-  const sql = `UPDATE folder SET name = ? WHERE id = ?`;
+async function update_folder(id,nome){
+  const sql = `UPDATE folder SET nome = ? WHERE id = ?`;
   const db = await conn();
   const {results} = await db.run(sql,[content,id]);
   return results; 
@@ -54,7 +54,7 @@ async function view_folder(){
   return results;
 }
 
-
+module.exports = {create_folders, create_txt, update_folder, update_txt, filters_txt, view_folder, delete_folders, delete_txt}
 
 /*
 
@@ -63,13 +63,13 @@ WHERE artistid = 1;
 */
 /*async function create(data) {
 
-const sql = 'INSERT INTO folders (name,id_estrageiro) VALUES (?,?)';
+const sql = 'INSERT INTO folders (nome,id_estrageiro) VALUES (?,?)';
 
 const db = await conn();
 
 
 
-const {lastID} = await db.run(sql, [id,name])
+const {lastID} = await db.run(sql, [id,nome])
 
 return lastID;
 

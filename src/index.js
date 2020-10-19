@@ -4,6 +4,10 @@ const { dbFile } = require("./db");
 const Migration = require("./migrations");
 const routes = require('./routes');
 const app = express();
+const cors = require('cors');
+
+app.use(express.json());
+app.use(cors());
 app.use(express.static("public"));
 app.use(routes);
 (async () => {
