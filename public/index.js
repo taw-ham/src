@@ -209,6 +209,7 @@ document.getElementById("historico").onclick = function () {
             const ul_txt = document.getElementById("historico_txt/");
             txt_Service.listar(idFolder).then(resposta => {
               for (let i = 0; i <= resposta.length-1; i++) {
+                txt = resposta[i];
                 const li = document.createElement("li");
                 const button_txt = document.createElement("button");
                 button_txt.innerText = resposta[i].name;
@@ -223,7 +224,7 @@ document.getElementById("historico").onclick = function () {
                 txt_Service.listar(idFolder)
                 txt_put = document.getElementById("put_texto_txt").value = txt;
                 document.getElementById("put_txt").onclick = function () {
-                  txt_put = document.getElementById("put_texto_txt").value;
+                  const txt_put = document.getElementById("put_texto_txt").value;
                   const jhon_sleep = new TXT_put(txt_put);
                   txt_Service.atualizar(id, jhon_sleep).then(response => {
                   window.location.reload();
