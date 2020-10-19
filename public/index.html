@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="./index.css">
+    </head>
+
+    <body>
+        <div id="menu_opcao">
+            <button id="criar_folder"> Criar Pasta </button>
+            <button id="historico"> Histórico </button>
+        </div>
+
+        <div id="area_criar_folder">
+                <input id="nome_folder" placeholder="Digite o nome da pasta"></br>
+                <button id="enviar_folder"> Salvar </button>
+        </div>
+
+        <div id="area_historico">
+          <div id="escolha_folder">
+
+            <ul id="historico_folder">
+            </ul>
+
+            <button id="criar_txt"> Criar Texto </button>
+            <button id="voltar_historico"> Voltar </button>
+          </div>
+
+          <div id="area_criar_txt">
+                <input id="nome_txt" placeholder="Digite o nome do txt"><br>
+                <textarea id="txt" phaceloader="Escreva seu texto..."></textarea><br>
+                <button id="enviar_txt"> Salvar </button>
+          </div>
+
+          <div id="escolha_txt">
+
+            <ul id="historico_txt">
+            </ul>
+
+            <button id="voltar_historico_txt"> Voltar </button>
+          </div>
+
+          <div id="look_txt">
+
+              <textarea id="put_texto_txt"> 
+              </textarea>
+
+              <button id="put_txt"> Atualizar </button>
+              <button id="cancelar_put_txt"> Cancelar </button>
+          </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="index.js"></script>
+    </body>
+</html>
