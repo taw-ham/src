@@ -5,14 +5,14 @@ const Migration = require("./migrations");
 const routes = require('./routes');
 const app = express();
 app.use(express.static("public"));
-app.use(routes)
-async () => {
+app.use(routes);
+(async () => {
   if (!fs.existsSync(dbFile)) {
-    await Migration.up();
+    await Migration.up();  
   }
-};
+})();
 app.listen(3000, () => {
-  console.log("server is running in the port 3000");
+  console.log(app);
 });
 
 /*
