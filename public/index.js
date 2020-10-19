@@ -222,9 +222,8 @@ document.getElementById("historico").onclick = function () {
                 $("#look_txt").show("fast");
                 
                 txt_Service.listar(idFolder)
-                txt_put = document.getElementById("put_texto_txt").value = txt;
-                document.getElementById("put_txt").onclick = function () {
-                  const txt_put = document.getElementById("put_texto_txt").value;
+                const txt_put = document.getElementById("put_texto_txt").value = txt;
+                document.getElementById("put_txt").onclick = function ()
                   const jhon_sleep = new TXT_put(txt_put);
                   txt_Service.atualizar(id, jhon_sleep).then(response => {
                   window.location.reload();
