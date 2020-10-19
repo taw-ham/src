@@ -127,8 +127,8 @@ class folder_Service {
   }
 }
 
-const txt_Service = new txt_Service("/create/txt", "/update/txt", "/look/txts", "/delete/txt", "/look/txt")
-const folder_Service = new folder_Service("/create/folder", "/update/folder", "/look/folders", "/delete/folder")
+const texto_Service = new txt_Service("http://localhost:3000/create/txt", "http://localhost:3000/update/txt", "http://localhost:3000/look/txts", "http://localhost:3000/delete/txt", "http://localhost:3000/look/txt")
+const pasta_Service = new folder_Service("http://localhost:3000/create/folder", "http://localhost:3000/update/folder", "http://localhost:3000/look/folders", "http://localhost:3000/delete/folder")
 
 $("#area_criar_folder").hide("fast");
 $("#area_historico").hide("fast");
@@ -162,7 +162,7 @@ document.getElementById("criar_txt").onclick = function () {
             swal('digite o nome ou o seu texto!', '- tente novamente -', 'error')
         } else {
             const texto = new TXT(txt_nome, txt_user);
-            txt_Service.inserir(id, texto).then(resposta => {
+            texto_Service.inserir(id, texto).then(resposta => {
                 $("#nome_txt").val(' ');
                 $("#txt").val(' ');
                 $("#area_historico").show("fast");
@@ -207,7 +207,7 @@ document.getElementById("historico").onclick = function () {
                 $("#escolha_txt").show("fast");
 
             const ul_txt = document.getElementById("historico_txt/");
-            txt_Service.listar(idFolder).then(resposta => {
+            texto_Service.listar(idFolder).then(resposta => {
               for (let i = 0; i <= resposta.length-1; i++) {
                 txt = resposta[i];
                 const li = document.createElement("li");
@@ -221,11 +221,11 @@ document.getElementById("historico").onclick = function () {
                 $("#escolha_txt").hide("fast");
                 $("#look_txt").show("fast");
                 
-                txt_Service.listar(idFolder)
+                texto_Service.listar(idFolder)
                 const txt_put = document.getElementById("put_texto_txt").value = txt;
-                document.getElementById("put_txt").onclick = function ()
+                document.getElementById("put_txt").onclick = function (){
                   const jhon_sleep = new TXT_put(txt_put);
-                  txt_Service.atualizar(id, jhon_sleep).then(response => {
+                  texto_Service.atualizar(id, jhon_sleep).then(response => {
                   window.location.reload();
                   }) 
                 }
