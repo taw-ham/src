@@ -29,7 +29,7 @@ const Update_folder = async (req,res) => {
 const Filters_txt = async (req,res) => {
   const id_folder = req.body
   const filters_txt = await funcoes.filters_txt(id_folder);
-  return json(filters_txt);
+  res.json(filters_txt);
 }
 
 const Delete_txt = async (req,res)=> {

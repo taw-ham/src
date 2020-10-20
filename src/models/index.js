@@ -1,4 +1,4 @@
-const conn = require('../db');
+const {conn, dbfile} = require('../db');
 async function create_folders(data){
   const sql = `INSERT INTO folders (nome) VALUES (?)`;
   const {nome} = data;
@@ -7,7 +7,7 @@ async function create_folders(data){
   return lastID;
 }
 async function create_txt(data){
-  const sql = `INSERT INTO folders (nome,content,id_estrangeiro) VALUES (?,?,?)`;
+  const sql = `INSERT INTO txt (nome,content,id_estrangeiro) VALUES (?,?,?)`;
   const {nome,content,id_estrangeiro} = data;
   const db = await conn();
   const {lastID} = await db.run(sql, [nome,content,id_estrangeiro])
@@ -50,7 +50,7 @@ async function update_folder(id,nome){
 async function view_folder(){
   const sql = `SELECT * FROM folders`;
   const db = await conn();
-  const {results} = await db.all(sql);
+  const {results} = await db.run(sql);
   return results;
 }
 

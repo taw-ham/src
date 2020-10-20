@@ -4,13 +4,13 @@ async function up(){
   await db.run(`
   CREATE TABLE IF NOT EXISTS folders(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT
+    nome TEXT
   )
   `);
   await db.run(`
   CREATE TABLE IF NOT EXISTS txt(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
+    nome TEXT,
     content TEXT,
     id_estrangeiro INTEGER,
     FOREIGN KEY (id_estrangeiro) REFERENCES folders (id)
