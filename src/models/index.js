@@ -8,16 +8,16 @@ async function create_folders(data){
 }
 async function create_txt(data){
   const sql = `INSERT INTO txt (nome,content,id_estrangeiro) VALUES (?,?,?)`;
-  const {nome,content,id_estrangeiro} = data;
+  const {nome,content,id} = data;
   const db = await conn();
-  const {lastID} = await db.run(sql, [nome,content,id_estrangeiro])
+  const {lastID} = await db.run(sql, [nome,content,id])
   return lastID;
 }
 async function filters_txt(data){
   const sql = `SELECT * FROM txt WHERE id_estrangeiro = ?`;
-  const {id_estrangeiro} = data;
+  const {id} = data;
   const db = await conn();
-  const{results} = await db.run(sql,[id_estrangeiro]);
+  const{results} = await db.all(sql,[id]);
   return results;
 }
 async function delete_txt(data){
@@ -35,22 +35,25 @@ async function delete_folders(data){
   const {results} = await db.run(sql,[id]);
   return results;
 }
-async function update_txt(id,content){
+async function update_txt(data){
   const sql = `UPDATE txt SET content = ? WHERE id = ?`;
   const db = await conn();
+  const {id,content} = data;
   const {results} = await db.run(sql,[content,id]);
   return results; 
 }
-async function update_folder(id,nome){
+async function update_folder(data){
   const sql = `UPDATE folder SET nome = ? WHERE id = ?`;
   const db = await conn();
+  const{ id,content } = data;
   const {results} = await db.run(sql,[content,id]);
   return results; 
 }
 async function view_folder(){
   const sql = `SELECT * FROM folders`;
   const db = await conn();
-  const {results} = await db.run(sql);
+  const results = await db.all(sql);
+  
   return results;
 }
 

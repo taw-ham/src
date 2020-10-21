@@ -24,7 +24,7 @@ class txt_Service {
       let id = idFolder;
       return fetch(this.urlCreate, {
         method: "POST",
-        body: JSON.stringify(nome, txt, id),
+        body: JSON.stringify({nome, txt, id}),
         headers: {
           'Content-Type': 'application/json'
         }
@@ -48,7 +48,7 @@ class txt_Service {
       let id = idTxt;
       return fetch(this.urlUpdate, {
         method: "PUT",
-        body: JSON.stringify(id, txt),
+        body: JSON.stringify(id,txt),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -89,7 +89,7 @@ class folder_Service {
     console.log(nome)
     let request = {
       method: "POST",
-      body: {"nome": nome},
+      body: JSON.stringify({nome}),
       headers: {
         'Content-Type': 'application/json'
       }
