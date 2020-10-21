@@ -16,9 +16,9 @@ router.put('/update/txt', controller.Update_txt);
 router.post('/create/folder', controller.Create_folder);
 router.put('/update/folder', controller.Update_folder);
 router.get('/look/folder',controller.View_folder);
-router.post('/look/txts',controller.Filters_txt);
-router.delete('/delete/txt', controller.Delete_txt);
-router.delete('/delete/folder',controller.Delete_folder);
+router.post('/look/txts/',controller.Filters_txt);
+router.delete('/delete/txt/:id', controller.Delete_txt);
+router.delete('/delete/folder/:id',controller.Delete_folder);
 
 module.exports = router;
 
