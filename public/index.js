@@ -10,7 +10,7 @@ class TXT_put {
     }
 }
 
-class txt_Service {
+class Txt_Service {
     constructor(urlCreate, urlUpdate, urlListAll, urlDelete, urlLook) {
       this.urlCreate = urlCreate;
       this.urlUpdate = urlUpdate;
@@ -48,7 +48,7 @@ class txt_Service {
       let id = idTxt;
       return fetch(this.urlUpdate, {
         method: "PUT",
-        body: JSON.stringify(id,txt),
+        body: JSON.stringify({id, txt}),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -59,14 +59,14 @@ class txt_Service {
     deletar(idTxt){
       // Deleta um txt
       let id = idTxt;
-      return fetch(this.urlDelete, {
+      return fetch(this.urlDelete + "/" + id, {
         method: "DELETE",
         body: JSON.stringify(id)
       })
     }
 
     olhar(idTxt){
-      // N
+      // Nice
       // Requisita o conteúdo de um txt
       let id = idTxt;
       return fetch(this.urlLook, {
@@ -76,7 +76,7 @@ class txt_Service {
     }
 }
 
-class folder_Service {
+class Folder_Service {
   constructor(urlCreate, urlUpdate, urlListAll, urlDelete) {
     this.urlCreate = urlCreate;
     this.urlUpdate = urlUpdate;
@@ -85,25 +85,20 @@ class folder_Service {
   }
 
   inserir(nome) {
-    // Cria um folder (pasta) com o nome definido
-    console.log(nome)
-    let request = {
+   return fetch(this.urlCreate, {
       method: "POST",
       body: JSON.stringify({nome}),
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       }
-    }
-    console.log(request)
-    return fetch(this.urlCreate, request).then(
-      resposta => resposta.json()
-    );
+    }).then((resposta) => resposta.json());
+  
   }
 
   listar() {
     // Lista todos os folders
     return fetch(this.urlListAll, {
-      method: "GET", // ** verificar dps com taw o metodo
+      method: "GET",
     }).then(resposta => resposta.json())
   }
 
@@ -112,7 +107,7 @@ class folder_Service {
     let id = idFolder;
     return fetch(this.urlUpdate, {
       method: "PUT",
-      body: JSON.stringify(id, nome),
+      body: JSON.stringify({id, nome}),
       headers: {
         'Content-Type': 'application/json'
       }
@@ -123,16 +118,44 @@ class folder_Service {
   deletar(idFolder){
     // Deleta um folder
     let id = idFolder;
-    return fetch(this.urlDelete, {
+    return fetch(this.urlDelete + "/" + id, {
       method: "DELETE",
       body: JSON.stringify(id)
     })
   }
 }
 
-const texto_Service = new txt_Service("http://localhost:3000/create/txt", "http://localhost:3000/update/txt", "http://localhost:3000/look/txts", "http://localhost:3000/delete/txt", "http://localhost:3000/look/txt")
-const pasta_Service = new folder_Service("http://localhost:3000/create/folder", "http://localhost:3000/update/folder", "http://localhost:3000/look/folders", "http://localhost:3000/delete/folder")
+const txt_Service = new Txt_Service("/create/txt", "/update/txt", "/look/txts", "/delete/txt", "/look/txt")
+const folder_Service = new Folder_Service("/create/folder", "/update/folder", "/look/folders", "/delete/folder")
+folder_Service.listar().then(resposta =>{
+  const list_folders = document.getElementById("list_folders");
+  for(let i = 0; i <= resposta.length -1; i++){
+    const li = document.createElement("li");
+    const button_folder = document.createElement("button");
+    const button_folder_apagar = document.createElement("button");
+    button_folder.innerHTML = resposta[i].nome;
+    button_folder.setAttribute('id',resposta[i].id);
+    button_folder_apagar.setAttribute('id',resposta[i].id);
+    li.setAttribute('id',resposta[i].id);
+    li.append(button_folder);
+    li.append(button_folder_apagar);
+    list_folders.append(li);
+    button_folder_apagar.onclick = function(){
+      const id_apagar = resposta[i].id;
+      folder_Service.deletar(id_apagar).then(resposta => {
+       
 
+
+      })
+    }
+
+
+
+    
+
+  }
+})
+/*
 $("#area_criar_folder").hide("fast");
 $("#area_historico").hide("fast");
 
@@ -145,38 +168,20 @@ document.getElementById("criar_folder").onclick = function () {
         if (nome_folder == "") {
             swal('Digite o nome da sua pasta!', '- tente novamente -', 'error')
         } else {
-          pasta_Service.inserir(nome_folder).then(resposta => {
+            folder_Service.inserir(nome_folder).then(resposta => {
+
+
                 $("#nome_folder").val(' ');
                 $("#area_criar_folder").hide("fast");
                 $("#menu_opcao").show("fast");
-    })
-}
-}
+            })
+          }
+    }
 }
 
 document.getElementById("criar_txt").onclick = function () {
     $("area_historico").hide("fast");
     $("#area_criar_txt").show("fast");
-
-    document.getElementById("enviar_txt").onclick = function () {
-        const txt_user = document.getElementById("txt").value;
-        const txt_nome = document.getElementById("nome_txt").value;
-        if (txt_user == "" || txt_nome == "") {
-            swal('digite o nome ou o seu texto!', '- tente novamente -', 'error')
-        } else {
-            const texto = new TXT(txt_nome, txt_user);
-            texto_Service.inserir(id, texto).then(resposta => {
-                $("#nome_txt").val(' ');
-                $("#txt").val(' ');
-                $("#area_historico").show("fast");
-                $("#escolha_folder").show("fast");
-                $("#area_criar_txt").hide("fast");
-                $("#escolha_txt").hide("fast");
-                $("#look_folder").hide("fast");
-                $("#look_txt").hide("fast");
-            })
-        }
-    }
 }
 
 document.getElementById("historico").onclick = function () {
@@ -195,55 +200,89 @@ document.getElementById("historico").onclick = function () {
     }
 
     const ul_folder = document.getElementById("historico_folder");
-    // **
-    pasta_Service.listar(id).then(resposta => {
+    folder_Service.listar().then(resposta => {
         for (let i = 0; i <= resposta.length-1; i++) {
+            const idPasta = resposta[i].id;
             const li = document.createElement("li");
             const button_folder = document.createElement("button");
+            const button_folder_delete = document.createElement("button");
             button_folder.innerText = resposta[i].nome;
+            button_folder_delete.innerText = "apagar";
+            button_folder.innerHTML = "<img src='./imgs/docs.png' height='20%'' width='20%'>";
             button_folder.setAtribute('id', resposta[i].id);
-            li.append(button);
+            li.setAtribute('class',resposta[i].id)
+            li.append(button_folder);
+            li.append(button_folder_delete);
             ul_folder.append(li);
-
-            button.onclick = function () {
+            button_folder_delete.onclick = function () {
+              // TODO não confiar
+              folder_Service.deletar(idPasta[i]);
+              $("li").remove(`.${idPasta[i]}`);
+            
+            }
+            
+            button_folder.onclick = function () {
                 $("#escolha_folder").hide("fast");
                 $("#escolha_txt").show("fast");
 
-            const ul_txt = document.getElementById("historico_txt/");
-            texto_Service.listar(idFolder).then(resposta => {
-              for (let i = 0; i <= resposta.length-1; i++) {
-                txt = resposta[i];
-                const li = document.createElement("li");
-                const button_txt = document.createElement("button");
-                button_txt.innerText = resposta[i].name;
-                button_txt.setAtribute('id', resposta[i].id);
-                li.append(button);
-                ul_txt.append(li);
-
-                button.onclick = function () {
-                $("#escolha_txt").hide("fast");
-                $("#look_txt").show("fast");
-                
-                texto_Service.listar(idFolder)
-                const txt_put = document.getElementById("put_texto_txt").value = txt;
-                document.getElementById("put_txt").onclick = function (){
-                  const jhon_sleep = new TXT_put(txt_put);
-                  texto_Service.atualizar(id, jhon_sleep).then(response => {
-                  window.location.reload();
-                  }) 
+                document.getElementById("enviar_txt").onclick = function () {
+                    const txt = document.getElementById("txt").value;
+                    const nome_txt = document.getElementById("nome_txt").value;
+                    if (nome_txt == "" || txt == "") {
+                        swal('digite o nome ou o seu texto!', '- tente novamente -', 'error')
+                    } else {
+                        txt_Service.inserir(nome_txt, txt, id_pasta).then(resposta => {
+                            $("#nome_txt").val(' ');
+                            $("#txt").val(' ');
+                            $("#area_historico").show("fast");
+                            $("#escolha_folder").show("fast");
+                            $("#area_criar_txt").hide("fast");
+                            $("#escolha_txt").hide("fast");
+                            $("#look_folder").hide("fast");
+                            $("#look_txt").hide("fast");
+                        })
+                      }
                 }
 
-                document.getElementById("cancelar_put_txt").onclick = function () {
-                    $("#put_texto_txt").val(' ');
-                    $("#look_txt").hide("fast");
-                    $("#escolha_txt").show("fast");
-                }
+                const ul_txt = document.getElementById("historico_txt/");
+                txt_Service.listar(idFolder).then(resposta2 => {
+                    for (let t = 0; t <= resposta2.length-1; t++) {
+                        let idTxt = resposta2[t].id;
+                        txt = resposta2[t];
+                        const li = document.createElement("li");
+                        const button_txt = document.createElement("button");
+                        button_txt.innerText = resposta2[t].name;
+                        button_txt.innerHTML = "<img src='./imgs/path.png' height='20%'' width='20%'>";
+                        button_txt.setAtribute('id', resposta2[t].id);
+                        const button_txt_delete = document.createElement("button");
+                        button_txt_delete.innerText = "apagar";
+                        li.append(button_txt);
+                        li.append(button_txt_delete);
+                        ul_txt.append(li);
 
-                }
+                        button_txt.onclick = function () {
+                            $("#escolha_txt").hide("fast");
+                            $("#look_txt").show("fast");
+                                            
+                            txt_Service.olhar(idTxt).then( resposta => {
+                                document.getElementById("put_txt").onclick = function () {
+                                    const txt_put = document.getElementById("put_texto_txt").value = txt;
+                                    const jhon_sleep = new TXT_put(txt_put);
+                                    txt_Service.atualizar(idTxt, txt).then(response => { window.location.reload(); }) 
+                                }
+                            })
 
-          }
-        })
-      }
-     }
-   })
+                            document.getElementById("cancelar_put_txt").onclick = function () {
+                                $("#put_texto_txt").val(' ');
+                                $("#look_txt").hide("fast");
+                                $("#escolha_txt").show("fast");
+                            }
+                        }
+
+                    }
+                })
+            }
+        }
+    })
 }
+*/
