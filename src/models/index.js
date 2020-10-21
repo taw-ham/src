@@ -8,9 +8,9 @@ async function create_folders(data){
 }
 async function create_txt(data){
   const sql = `INSERT INTO txt (nome,content,id_estrangeiro) VALUES (?,?,?)`;
-  const {nome,content,id} = data;
+  const {nome,txt,id} = data;
   const db = await conn();
-  const {lastID} = await db.run(sql, [nome,content,id])
+  const {lastID} = await db.run(sql, [nome,txt,id])
   return lastID;
 }
 async function filters_txt(data){
@@ -38,15 +38,15 @@ async function delete_folders(data){
 async function update_txt(data){
   const sql = `UPDATE txt SET content = ? WHERE id = ?`;
   const db = await conn();
-  const {id,content} = data;
-  const {results} = await db.run(sql,[content,id]);
+  const {id,txt} = data;
+  const {results} = await db.run(sql,[txt,id]);
   return results; 
 }
 async function update_folder(data){
   const sql = `UPDATE folder SET nome = ? WHERE id = ?`;
   const db = await conn();
-  const{ id,content } = data;
-  const {results} = await db.run(sql,[content,id]);
+  const{ id,nome } = data;
+  const {results} = await db.run(sql,[nome,id]);
   return results; 
 }
 async function view_folder(){
