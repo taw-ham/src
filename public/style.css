@@ -1,7 +1,93 @@
 body {
   margin: 0%;
-  background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ytimg.com%2Fvi%2FPau6JtaiED8%2Fmaxresdefault.jpg&f=1&nofb=1');
+  background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fblog.trello.com%2Fhs-fs%2Fhubfs%2FImported_Blog_Media%2Fdesktop_zero_feature_tiny.jpg%3Fwidth%3D2000%26height%3D1000%26name%3Ddesktop_zero_feature_tiny.jpg&f=1&nofb=1');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+}
+
+.btn-danger {
+  width: 10%;
+  background-attachment: fixed;
+}
+
+div {
+  margin: 0%;
+  background-color: whitesmoke;
+  padding: 1%;
+  margin-top: 2%;
+  margin-left: 2%;
+  border: 1px solid lightslategray;
+  width: 50%;
+  position: relative;
+  border-radius: 2px;
+}
+
+div button {
+  margin: 0%;
+  font-family: calibri;
+  padding-top: 0.1%;
+  padding-bottom: 0.1%;
+  text-align: center;
+  padding-left: 1%;
+  padding-right: 1%;
+  margin-top: 1%;
+  margin-left: 1%;
+}
+
+div label {
+  margin: 0%;
+  background-color: lightsteelblue;
+  padding: 0.5%;
+  text-align: center;
+  color: white;
+  text-shadow: 1px 1px #000;
+  font-family: calibri;
+  margin-top: 1%;
+  margin-left: 1%;
+  font-weight: bold;
+  font-size: 120%;
+  width: 50%;
+  border-radius: 2px
+}
+
+div input {
+  margin: 0%;
+  width: 40%;
+  border-radius: 2px;
+}
+
+div textarea {
+  margin: 0%;
+  border-radius: 2px;
+  width: 40%;
+}
+
+ul {
+  margin: 0%;
+  list-style-type: none;
+  padding: 0.5%;
+  background-color: lightgray;
+  margin-top: 1%;
+  margin-left: 1%;
+}
+
+ul button {
+  margin: 0%;
+  font-family: calibri;
+  padding-top: 0.1%;
+  padding-bottom: 0.1%;
+  text-align: center;
+  padding-left: 1%;
+  padding-right: 1%;
+  margin-left: -2%;
+  margin-right: 3%;
+}
+
+.btn-warning {
+  color:white;
+}
+
+.btn-warning:hover {
+  color: white;
 }

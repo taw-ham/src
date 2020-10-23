@@ -19,7 +19,7 @@ async function up(){
 }
 async function down () {
   const db =  await conn();
-  await db.run ('DROP TABLE folder');
+  await db.run ('DROP TABLE folders');
   await db.run ('DROP TABLE txt');
 }
 module.exports = {up,down};
