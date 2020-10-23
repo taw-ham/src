@@ -1,6 +1,5 @@
 const funcoes = require('../models/index.js');
 const Create_txt = async (req,res) => {
-  console.log(req.body)
   const txt = await funcoes.create_txt(req.body);
   res.json(txt);
 }
