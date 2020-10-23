@@ -14,14 +14,14 @@ async function create_txt(data){
   const {nome,txt,id} = data;
   const db = await conn();
   const results = await db.run(sql, [nome,txt,id])
-  const SQL = `SELECT * FROM txt`;
-  const results2 = await db.all(SQL);
+  const SQL = `SELECT * FROM txt WHERE id_estrangeiro = ?`;
+  const results2 = await db.all(SQL,[id]);
   return results2;
 }
 async function filters_txt(data){
   const sql = "SELECT * from txt WHERE id_estrangeiro = ?";
   const {id} = data;
-  console.log(typeof id);
+  console.log(data)
   const db = await conn();
   const results = await db.all(sql, [id]);
   console.log(await db.all(sql));
@@ -76,8 +76,15 @@ async function view_folder(){
   const results = await db.all(sql);
   return results;
 }
+async function look_txt(data){
+  const sql = `SELECT * FROM txt WHERE id = ?`;
+  const {id} = data;
+  const db = await conn();
+  const results = await db.all(sql,[id]);
+  return results;
+}
 
-module.exports = {create_folders, create_txt, update_folder, update_txt, filters_txt, view_folder, delete_folders, delete_txt}
+module.exports = {create_folders, create_txt, update_folder, update_txt, filters_txt, view_folder, delete_folders, delete_txt,look_txt}
 
 /*
 

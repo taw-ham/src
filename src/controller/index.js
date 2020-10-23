@@ -17,7 +17,7 @@ const Update_folder = async (req,res) => {
   res.json(folder);
 }
 const Filters_txt = async (req,res) => {
- 
+  console.log(req.body);
   const filters_txt = await funcoes.filters_txt(req.body);
   res.json(filters_txt);
 }
@@ -25,6 +25,11 @@ const Delete_txt = async (req,res)=> {
   const id = Number(req.params.id);
   const txt = await funcoes.delete_txt(id);
   res.json(txt);
+}
+const Look_txt = async (req,res) => {
+  const txt = await funcoes.look_txt(req.body);
+  res.json(txt);
+
 }
 const Delete_folder = async (req,res)=>{
   const id = Number(req.params.id);
@@ -37,7 +42,7 @@ const View_folder = async (req,res) => {
  const folder = await funcoes.view_folder();
   res.json(folder);
 } 
-module.exports = {Create_txt,Create_folder,Update_txt,Update_folder,Filters_txt,Delete_txt,Delete_folder,View_folder}
+module.exports = {Create_txt,Create_folder,Update_txt,Update_folder,Filters_txt,Delete_txt,Delete_folder,View_folder,Look_txt}
 
   
 

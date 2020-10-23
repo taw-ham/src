@@ -15,8 +15,9 @@ router.post('/create/txt', controller.Create_txt);
 router.put('/update/txt', controller.Update_txt);
 router.post('/create/folder', controller.Create_folder);
 router.put('/update/folder', controller.Update_folder);
-router.get('/look/folder',controller.View_folder);
+router.get('/look/folders',controller.View_folder);
 router.post('/look/txts/',controller.Filters_txt);
+router.post('/look/txt',controller.Look_txt);
 router.delete('/delete/txt/:id', controller.Delete_txt);
 router.delete('/delete/folder/:id',controller.Delete_folder);
 
