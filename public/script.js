@@ -232,6 +232,7 @@ folder_Service.listar().then(resposta => {
       document.getElementById("back_view_txt").onclick = function(){
         $("#view_folders").show("fast");
         $("#view_txt").hide("fast");
+        $("#list_txt").empty();
       }
       
       txt_Service.listar(id_folder).then(resposta2 => {
@@ -264,6 +265,7 @@ folder_Service.listar().then(resposta => {
             document.getElementById("back_look_txt").onclick = function(){
               $("#view_txt").show("fast");
               $("#look_txt").hide("fast");
+              
 
             }
             

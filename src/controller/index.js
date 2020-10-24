@@ -16,7 +16,6 @@ const Update_folder = async (req,res) => {
   res.json(folder);
 }
 const Filters_txt = async (req,res) => {
-  console.log(req.body);
   const filters_txt = await funcoes.filters_txt(req.body);
   res.json(filters_txt);
 }
@@ -32,7 +31,7 @@ const Look_txt = async (req,res) => {
 }
 const Delete_folder = async (req,res)=>{
   const id = Number(req.params.id);
-  console.log(req.params.id);
+
   const folder = await funcoes.delete_folders(id);
   res.json(folder);
 }
